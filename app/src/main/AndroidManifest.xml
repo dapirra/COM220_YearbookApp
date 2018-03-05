@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResumeActivity"></activity>
+        <activity
+            android:name=".ResumeActivity"
+            android:label="My Resume"
+            android:parentActivityName=".MainActivity" />
     </application>
 </manifest>
