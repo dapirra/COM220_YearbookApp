@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My Yearbook</string>
+    <string name="name_data">Scott McQuilkin\nI build cool stuff</string>
 </resources>
