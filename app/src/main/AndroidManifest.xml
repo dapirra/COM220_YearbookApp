@@ -20,5 +20,9 @@
             android:name=".ResumeActivity"
             android:label="My Resume"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".WeatherActivity"
+            android:label="5 Day Forecast"
+            android:parentActivityName=".MainActivity" />
     </application>
 </manifest>
