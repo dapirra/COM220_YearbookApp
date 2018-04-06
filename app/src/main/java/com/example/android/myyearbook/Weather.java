@@ -1,13 +1,16 @@
 package com.example.android.myyearbook;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Weather {
-    private String date;
+    private Date date;
     private String summary;
     private String icon;
     private double tempHigh;
     private double tempLow;
 
-    public Weather(String date, String summary, String icon, double tempHigh, double tempLow) {
+    public Weather(Date date, String summary, String icon, double tempHigh, double tempLow) {
         this.date = date;
         this.summary = summary;
         this.icon = icon;
@@ -15,11 +18,11 @@ public class Weather {
         this.tempLow = tempLow;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -53,5 +56,13 @@ public class Weather {
 
     public void setTempLow(double tempLow) {
         this.tempLow = tempLow;
+    }
+
+    public String getFormattedDate() {
+        return new SimpleDateFormat("EEE, MMM d").format(date);
+    }
+
+    public String getFormattedTemp() {
+        return String.format("%d° - %d°", Math.round(this.tempLow), Math.round(this.tempHigh));
     }
 }

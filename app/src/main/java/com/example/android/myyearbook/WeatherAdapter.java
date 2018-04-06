@@ -28,10 +28,9 @@ public class WeatherAdapter extends ArrayAdapter {
 
         ((TextView) weatherItem.findViewById(R.id.summary_text)).setText(weather.getSummary());
 
-        ((TextView) weatherItem.findViewById(R.id.date_text)).setText(weather.getDate());
+        ((TextView) weatherItem.findViewById(R.id.date_text)).setText(weather.getFormattedDate());
 
-        ((TextView) weatherItem.findViewById(R.id.temp_text)).setText(
-                String.format("%d° - %d°", Math.round(weather.getTempLow()), Math.round(weather.getTempHigh())));
+        ((TextView) weatherItem.findViewById(R.id.temp_text)).setText(weather.getFormattedTemp());
 
         int imageResource;
         switch (weather.getIcon()) {

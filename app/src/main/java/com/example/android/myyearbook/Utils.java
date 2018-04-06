@@ -15,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -123,7 +122,7 @@ public final class Utils {
             for (int i = 0; i < data.length(); i++) {
                 JSONObject weather = (JSONObject) data.get(i);
                 forecast.add(new Weather(
-                        new SimpleDateFormat("EEE, MMM d").format(new Date(weather.getLong("time") * 1000)),
+                        new Date(weather.getLong("time") * 1000),
                         weather.getString("summary"),
                         weather.getString("icon"),
                         weather.getDouble("temperatureHigh"),
