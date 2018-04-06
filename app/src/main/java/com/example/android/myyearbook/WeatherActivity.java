@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class WeatherActivity extends AppCompatActivity {
 
     final static String WEATHER_API_URL =
-            "https://api.darksky.net/forecast/115983dea73677f9a74319ccfd8a9c81/40.7657,-73.0152?exclude=minutely,hourly,alerts,flags";
+            "https://api.darksky.net/forecast/115983dea73677f9a74319ccfd8a9c81/40.775840,-73.02511?exclude=minutely,hourly,alerts,flags";
 
     private WeatherAdapter weatherAdapter;
 
