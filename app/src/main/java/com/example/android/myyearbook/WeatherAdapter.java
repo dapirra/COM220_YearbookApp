@@ -1,6 +1,8 @@
 package com.example.android.myyearbook;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,22 @@ public class WeatherAdapter extends ArrayAdapter {
             default: imageResource = R.drawable.cloudy;
         }
         ((ImageView) weatherItem.findViewById(R.id.weather_image)).setImageResource(imageResource);
+
+        weatherItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle(weather.getFormattedDate())
+                        .setMessage(weather.getSummary())
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
 
         return weatherItem;
     }
