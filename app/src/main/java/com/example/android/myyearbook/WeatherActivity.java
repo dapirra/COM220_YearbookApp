@@ -1,7 +1,9 @@
 package com.example.android.myyearbook;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.ListView;
@@ -121,6 +123,18 @@ public class WeatherActivity extends AppCompatActivity {
             } else {
                 weatherAdapter.notifyDataSetChanged();
             }
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Error")
+                    .setMessage("Unable to download data")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            onNavigateUp();
+                        }
+                    })
+                    .show();
         }
     }
 }
