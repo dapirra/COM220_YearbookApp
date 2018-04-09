@@ -10,6 +10,15 @@ public class Weather {
     private double tempHigh;
     private double tempLow;
 
+    /**
+     * This object holds weather information for a particular day.
+     *
+     * @param date A Date object that holds the day.
+     * @param summary A short summary of the weather.
+     * @param icon A string that says which icon should represent this day.
+     * @param tempHigh The highest temperature of this day.
+     * @param tempLow The lowest temperature of this day.
+     */
     public Weather(Date date, String summary, String icon, double tempHigh, double tempLow) {
         this.date = date;
         this.summary = summary;

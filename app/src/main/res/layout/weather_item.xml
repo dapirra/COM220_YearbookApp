@@ -42,6 +42,10 @@
                 android:textColor="@android:color/black"
                 tools:text="3/19/18" />
 
+            <!--
+                How can I show ellipses on my TextView if it is greater than the 1 line? - Stack Overflow
+                https://stackoverflow.com/questions/6393487/how-can-i-show-ellipses-on-my-textview-if-it-is-greater-than-the-1-line#6393730
+            -->
             <TextView
                 android:id="@+id/summary_text"
                 android:layout_width="wrap_content"

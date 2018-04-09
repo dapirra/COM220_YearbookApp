@@ -18,22 +18,30 @@ public class WeatherAdapter extends ArrayAdapter {
         super(context, 0, forecast);
     }
 
+    // Get the data from the weather array and put it into each item in the ListView
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        // Inflate the weather_item layout
         View weatherItem = convertView;
         if (weatherItem == null) {
             weatherItem = LayoutInflater.from(getContext()).inflate(
                     R.layout.weather_item, parent, false);
         }
 
+        // Get the weather object at the current position
         final Weather weather = (Weather) getItem(position);
 
+        // Set the summary text
         ((TextView) weatherItem.findViewById(R.id.summary_text)).setText(weather.getSummary());
 
+        // Set the date text
         ((TextView) weatherItem.findViewById(R.id.date_text)).setText(weather.getFormattedDate());
 
+        // Set the temperature text
         ((TextView) weatherItem.findViewById(R.id.temp_text)).setText(weather.getFormattedTemp());
 
+        // Set the icon
         int imageResource;
         switch (weather.getIcon()) {
             case "clear-day": imageResource = R.drawable.day_sunny; break;
@@ -53,6 +61,7 @@ public class WeatherAdapter extends ArrayAdapter {
         }
         ((ImageView) weatherItem.findViewById(R.id.weather_image)).setImageResource(imageResource);
 
+        // Set a listener for when an item is clicked
         weatherItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

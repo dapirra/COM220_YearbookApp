@@ -24,6 +24,7 @@ import java.util.Date;
 
 public class WeatherActivity extends AppCompatActivity {
 
+    // Dark Sky API Documentation: https://darksky.net/dev/docs
     private final static String WEATHER_API_URL =
             "https://api.darksky.net/forecast/115983dea73677f9a74319ccfd8a9c81/40.775840,-73.02511?exclude=minutely,hourly,alerts,flags";
 
@@ -34,6 +35,7 @@ public class WeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
+        // Create an Async task to download the weather data and update the UI
         new WeatherAsyncTask().execute(WEATHER_API_URL);
     }
 
@@ -42,17 +44,16 @@ public class WeatherActivity extends AppCompatActivity {
         @Override
         protected ArrayList<Weather> doInBackground(String... urls) {
             try {
-                return parseJSONData(downloadJSONData(urls[0]));
+                return parseJSONData(downloadJSONData(urls[0])); // Try to download and parse the weather data
             } catch (JSONException | IOException e) {
-                e.printStackTrace();
-                return null;
+                return null; // Return null if there's an error
             }
         }
 
+        // The result parameter comes from what is returned from doInBackground()
         @Override
         protected void onPostExecute(ArrayList<Weather> result) {
-            // Update the information displayed to the user.
-            updateUi(result);
+            updateUi(result); // Update the information displayed to the user.
         }
     }
 
@@ -62,17 +63,20 @@ public class WeatherActivity extends AppCompatActivity {
         BufferedReader reader = null;
 
         try {
+            // Connect to the API url
             urlConnection = (HttpURLConnection) new URL(url).openConnection();
             urlConnection.setReadTimeout(10000);
             urlConnection.setConnectTimeout(15000);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            // If the request was successful (response code 200), then read the input stream and parse the response.
+            // If the request was successful (response code 200), then read the input and return the response.
+            // Otherwise, throw an exception
             if (urlConnection.getResponseCode() == 200) {
                 InputStream inputStream = urlConnection.getInputStream();
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
                 reader = new BufferedReader(inputStreamReader);
+                // Since all the json data is on 1 line, there's no need to create a loop to read multiple lines
                 jsonData = reader.readLine();
             } else {
                 throw new IOException();
@@ -80,10 +84,14 @@ public class WeatherActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new IOException();
         } finally {
+            // Close everything regardless of whether there was an exception or not
+
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
             if (reader != null) {
+                // Closing the BufferedReader should be good enough
+                // https://stackoverflow.com/questions/12199142/closing-bufferedreader-and-inputstreamreader
                 reader.close();
             }
         }
@@ -97,14 +105,16 @@ public class WeatherActivity extends AppCompatActivity {
         }
 
         ArrayList<Weather> forecast = new ArrayList<>();
-        JSONObject baseJsonResponse = new JSONObject(weatherJSON);
-        JSONObject daily = baseJsonResponse.getJSONObject("daily");
-        JSONArray data = daily.getJSONArray("data");
+        JSONObject baseJsonResponse = new JSONObject(weatherJSON); // Convert the weatherJSON String into a JSONObject
+        JSONObject daily = baseJsonResponse.getJSONObject("daily"); // Get the daily object
+        JSONArray data = daily.getJSONArray("data"); // Get the data for each day of the week
 
+        // Loop through the data for each day of the week
         for (int i = 0; i < data.length(); i++) {
             JSONObject weather = (JSONObject) data.get(i);
+            // Create new Weather objects from the JSON and add them to the forecast ArrayList
             forecast.add(new Weather(
-                    new Date(weather.getLong("time") * 1000),
+                    new Date(weather.getLong("time") * 1000), // Add a few zeros to fix the UTC time
                     weather.getString("summary"),
                     weather.getString("icon"),
                     weather.getDouble("temperatureHigh"),
@@ -118,12 +128,15 @@ public class WeatherActivity extends AppCompatActivity {
     private void updateUi(ArrayList<Weather> result) {
         if (result != null) {
             if (weatherAdapter == null) {
+                // Create a new WeatherAdapter and set it to be the adapter of the ListView
                 weatherAdapter = new WeatherAdapter(this, result);
                 ((ListView) findViewById(R.id.weather_list)).setAdapter(weatherAdapter);
             } else {
+                // Notify the adapter that the data in the ArrayList has changed
                 weatherAdapter.notifyDataSetChanged();
             }
         } else {
+            // Show an error dialog if the result is null
             new AlertDialog.Builder(this)
                     .setTitle("Error")
                     .setMessage("Unable to download data")
@@ -136,7 +149,7 @@ public class WeatherActivity extends AppCompatActivity {
                     .setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
-                            onNavigateUp();
+                            onNavigateUp(); // This method causes the Up button to be triggered
                         }
                     })
                     .show();
