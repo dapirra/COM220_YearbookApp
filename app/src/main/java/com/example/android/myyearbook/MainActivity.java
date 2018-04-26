@@ -93,8 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
         // How to use Custom Font in Android App - Android Studio 2.0
         // https://www.youtube.com/watch?v=GPMDHz8MJvg
-        ((TextView) findViewById(R.id.name1)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/calibri.ttf"));
-        ((TextView) findViewById(R.id.name2)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/calibri.ttf"));
+        Typeface fontAsset = Typeface.createFromAsset(getAssets(), "fonts/calibri.ttf");
+        ((TextView) findViewById(R.id.name1)).setTypeface(fontAsset);
+        ((TextView) findViewById(R.id.name2)).setTypeface(fontAsset);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
