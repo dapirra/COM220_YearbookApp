@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.resume_button).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ResumeActivity.class));
             }
         });

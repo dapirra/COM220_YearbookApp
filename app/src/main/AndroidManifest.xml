@@ -25,7 +25,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".WeatherActivity"
-            android:label="Patchogue 7 Day Forecast"
+            android:label="7 Day Forecast"
             android:parentActivityName=".MainActivity" />
     </application>
 </manifest>
